@@ -3,6 +3,8 @@ import { IPost } from "../../../../types/post.interface";
 import { IUser } from "../../../../types/user.interface";
 import { Button, Card, ListGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { getCommentsByPostId } from "../../../../api/services/comments.service";
+import { IComment } from "../../../../types/comment.interface";
 interface ISingleProps {
   post: IPost;
   user: IUser;
@@ -10,9 +12,13 @@ interface ISingleProps {
 
 export const SinglePost: FC<ISingleProps> = ({ post, user }) => {
   const navigate = useNavigate();
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState<IComment[]>([]);
   const [isCommentsShowed, setIsCommentsShowed] = useState(false);
-  const handleCommentsClick = () => {
+  const handleCommentsClick = async () => {
+    if (!isCommentsShowed && comments.length === 0) {
+      const comments = await getCommentsByPostId(post.id);
+      setComments(comments);
+    }
     setIsCommentsShowed(!isCommentsShowed);
   };
   const handleAvatarClick = () => {
@@ -20,7 +26,7 @@ export const SinglePost: FC<ISingleProps> = ({ post, user }) => {
   };
   return (
     user && (
-      <Card>
+      <Card style={{ marginBottom: "10px" }}>
         <Card.Body>
           <Card.Title>{post.title}</Card.Title>
           <Card.Text>{post.body}</Card.Text>
@@ -39,16 +45,16 @@ export const SinglePost: FC<ISingleProps> = ({ post, user }) => {
             <span>Author</span>
           </div>
         </Card.Footer>
-        {/* {isCommentsShowed && (
-        <ListGroup variant='flush'>
-          {comments.map((comment) => (
-            <ListGroup.Item key={comment.id}>
-              <strong>{comment.email}</strong>
-              <p>{comment.body}</p>
-            </ListGroup.Item>
-          ))}
-        </ListGroup>
-      )} */}
+        {isCommentsShowed && (
+          <ListGroup variant='flush'>
+            {comments.map((comment) => (
+              <ListGroup.Item key={comment.id}>
+                <strong>{comment.email}</strong>
+                <p>{comment.body}</p>
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        )}
       </Card>
     )
   );
