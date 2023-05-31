@@ -6,15 +6,13 @@ import store from "./store/store";
 import { Home } from "./pages/Home";
 function App() {
   return (
-    <>
-      <Provider store={store}>
-        <BrowserRouter>
-          <Layout>
-            <Home />
-          </Layout>
-        </BrowserRouter>
-      </Provider>
-    </>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Layout>
+          <Home />
+        </Layout>
+      </BrowserRouter>
+    </Provider>
   );
 }
 

@@ -1,14 +1,38 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchPostsRequest } from "../store/actions/postActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
+import { Spinner } from "react-bootstrap";
+import { fetchUsersRequest } from "../store/actions/userActions";
+import { PostList } from "../shared/components/PostList/PostList";
 
 export const Home: FC = () => {
+  const [isLoadingDelayed, setIsLoadingDelayed] = useState(true);
+  const { isLoading, posts, error } = useTypedSelector((state) => state.posts);
+
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchPostsRequest());
+    const id = setTimeout(() => {
+      dispatch(fetchPostsRequest());
+      dispatch(fetchUsersRequest());
+      setIsLoadingDelayed(false);
+    }, 500);
+
+    return () => clearTimeout(id);
   }, [dispatch]);
-  const state = useTypedSelector((state) => state.posts);
-  console.log(state);
-  return <div>Home</div>;
+
+  if (isLoading || isLoadingDelayed)
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
+
+  if (error || !posts) return <h1>Error happened</h1>;
+
+  return (
+    <div>
+      <PostList posts={posts} />
+    </div>
+  );
 };

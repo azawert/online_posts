@@ -11,7 +11,7 @@ import {
 interface IInitialPostState {
   posts: IPost[];
   isLoading: boolean;
-  error: string | null;
+  error: string | null | Error;
 }
 
 const initialState: IInitialPostState = {
@@ -25,7 +25,10 @@ type PostAction =
   | IFetchPostsFailureAction
   | IFetchPostsRequestAction;
 
-export const postsReducer = (state = initialState, action: PostAction) => {
+export const postsReducer = (
+  state = initialState,
+  action: PostAction
+): IInitialPostState => {
   switch (action.type) {
     case FETCH_POSTS_REQUEST:
       return {

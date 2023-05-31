@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { Header } from "./header/Header";
 import styles from "./Layout.module.scss";
 
