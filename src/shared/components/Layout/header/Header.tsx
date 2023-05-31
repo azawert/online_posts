@@ -1,10 +1,9 @@
 import { FC } from "react";
 
-import "../Layout.scss";
 import { FaBars } from "react-icons/fa";
 import { IoCloseOutline } from "react-icons/io5";
 import { Divider } from "../../divider/Divider";
-import styles from "./header.module.scss";
+
 interface IHeaderProps {
   isOpen: boolean;
   handleMenuClick: () => void;
@@ -12,8 +11,8 @@ interface IHeaderProps {
 
 export const Header: FC<IHeaderProps> = ({ handleMenuClick, isOpen }) => {
   return (
-    <header style={{ position: "relative" }}>
-      <div className={styles.icon_wrapper}>
+    <header>
+      <div>
         {isOpen ? (
           <IoCloseOutline size={30} onClick={handleMenuClick} />
         ) : (
