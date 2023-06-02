@@ -1,13 +1,27 @@
-import { FC, InputHTMLAttributes } from "react";
+import {
+  ChangeEvent,
+  ChangeEventHandler,
+  FC,
+  InputHTMLAttributes,
+  PropsWithChildren,
+} from "react";
+import { TiDeleteOutline } from "react-icons/ti";
 
-export const Input: FC<InputHTMLAttributes<HTMLInputElement>> = ({
+interface IInputProps
+  extends PropsWithChildren<InputHTMLAttributes<HTMLInputElement>> {
+  value: string;
+}
+
+export const Input: FC<IInputProps> = ({
+  children,
   value,
   onChange,
   ...rest
 }) => {
   return (
-    <input onChange={onChange} {...rest}>
-      {value}
-    </input>
+    <div>
+      <input type={"text"} onChange={onChange} {...rest} value={value} />
+      {value && <TiDeleteOutline />}
+    </div>
   );
 };
