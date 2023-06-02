@@ -1,9 +1,9 @@
 import { Action } from "redux";
 
 import { IUser } from "../../types/user.interface";
-export const FETCH_USERS_REQUEST = "FETCH__REQUEST";
-export const FETCH_USERS_SUCCESS = "FETCH__SUCCESS";
-export const FETCH_USERS_FAILURE = "FETCH__FAILURE";
+export const FETCH_USERS_REQUEST = "FETCH_USERS_REQUEST";
+export const FETCH_USERS_SUCCESS = "FETCH_USERS_SUCCESS";
+export const FETCH_USERS_FAILURE = "FETCH_USERS_FAILURE";
 
 export interface IFetchUsersSuccessAction
   extends Action<typeof FETCH_USERS_SUCCESS> {

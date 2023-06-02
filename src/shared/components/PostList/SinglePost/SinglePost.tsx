@@ -5,6 +5,7 @@ import { Button, Card, ListGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { getCommentsByPostId } from "../../../../api/services/comments.service";
 import { IComment } from "../../../../types/comment.interface";
+import { CommentsBlock } from "./CommentsBlock";
 interface ISingleProps {
   post: IPost;
   user: IUser;
@@ -45,16 +46,7 @@ export const SinglePost: FC<ISingleProps> = ({ post, user }) => {
             <span>Author</span>
           </div>
         </Card.Footer>
-        {isCommentsShowed && (
-          <ListGroup variant='flush'>
-            {comments.map((comment) => (
-              <ListGroup.Item key={comment.id}>
-                <strong>{comment.email}</strong>
-                <p>{comment.body}</p>
-              </ListGroup.Item>
-            ))}
-          </ListGroup>
-        )}
+        {isCommentsShowed && <CommentsBlock comments={comments} />}
       </Card>
     )
   );
