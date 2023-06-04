@@ -6,8 +6,6 @@ import {
   IFetchPostsFailureAction,
   IFetchPostsRequestAction,
   IFetchPostsSuccessAction,
-  IFilterPostsAction,
-  POSTS_FILTER,
 } from "../actions/postActions";
 
 interface IInitialPostState {
@@ -27,8 +25,7 @@ const initialState: IInitialPostState = {
 type PostAction =
   | IFetchPostsSuccessAction
   | IFetchPostsFailureAction
-  | IFetchPostsRequestAction
-  | IFilterPostsAction;
+  | IFetchPostsRequestAction;
 
 export const postsReducer = (
   state = initialState,
@@ -53,13 +50,6 @@ export const postsReducer = (
         posts: [],
         error: action.payload,
         isLoading: false,
-      };
-    case POSTS_FILTER:
-      return {
-        ...state,
-        filteredPosts: state.posts.filter((post) =>
-          post.title.toLowerCase().includes(action.payload.toLowerCase())
-        ),
       };
     default:
       return state;

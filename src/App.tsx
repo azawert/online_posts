@@ -3,7 +3,7 @@ import Layout from "./shared/components/Layout/Layout";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Provider } from "react-redux";
 import store from "./store/store";
-import { Home } from "./pages/Home";
+import { Home } from "./pages/home/Home";
 import { About } from "./pages/About";
 function App() {
   return (

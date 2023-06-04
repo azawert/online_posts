@@ -17,9 +17,6 @@ export interface IFetchPostsRequestAction
   extends Action<typeof FETCH_POSTS_REQUEST> {
   payload?: undefined;
 }
-export interface IFilterPostsAction extends Action<typeof POSTS_FILTER> {
-  payload: string;
-}
 
 export const fetchPostsRequest = (): IFetchPostsRequestAction => ({
   type: FETCH_POSTS_REQUEST,
@@ -37,9 +34,4 @@ export const fetchPostsFailure = (
 ): IFetchPostsFailureAction => ({
   type: FETCH_POSTS_FAILURE,
   payload,
-});
-
-export const filterPosts = (payload: string): IFilterPostsAction => ({
-  payload,
-  type: POSTS_FILTER,
 });
