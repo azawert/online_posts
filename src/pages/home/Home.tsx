@@ -1,8 +1,8 @@
-import { ChangeEvent, FC, useEffect, useState } from "react";
+import { ChangeEvent, FC, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchPostsRequest } from "../../store/actions/postActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { Spinner } from "react-bootstrap";
+import { Pagination, Spinner } from "react-bootstrap";
 import { fetchUsersRequest } from "../../store/actions/userActions";
 import { PostList } from "../../shared/components/PostList/PostList";
 import { changeSearchValue } from "../../store/actions/searchActions";
@@ -14,7 +14,9 @@ export const Home: FC = () => {
   const { isLoading, error } = useTypedSelector((state) => state.posts);
   const { searchValue } = useTypedSelector((state) => state.search);
   const dispatch = useDispatch();
-  const { filteredPosts } = usePosts();
+  const { filteredPosts, handlePageChange, totalPages, currentPage } =
+    usePosts();
+  const divRef = useRef(null);
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(changeSearchValue(e.target.value));
   };
@@ -42,14 +44,28 @@ export const Home: FC = () => {
 
   return (
     <div className={styles.home__wrapper}>
-      <div className={styles.input_wrapper}>
-        <Input
-          deleteInputValue={handleDeleteInputValue}
-          value={searchValue}
-          onChange={handleChange}
-        />
-      </div>
+      <Input
+        deleteInputValue={handleDeleteInputValue}
+        value={searchValue}
+        onChange={handleChange}
+        placeholder='Enter title of post...'
+        width={"500px"}
+      />
+
       <PostList posts={filteredPosts} />
+      <Pagination>
+        {Array.from({ length: totalPages }).map((_, idx) => {
+          return (
+            <Pagination.Item
+              active={currentPage === idx + 1}
+              onClick={() => handlePageChange(idx + 1)}
+              key={idx + 1}
+            >
+              {idx + 1}
+            </Pagination.Item>
+          );
+        })}
+      </Pagination>
     </div>
   );
 };
