@@ -1,10 +1,10 @@
 import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { useTypedSelector } from "./useTypedSelector";
-import { ISortOptions } from "../shared/constants/constants";
+import { ISortOptions, SORT_OPTIONS } from "../shared/constants/constants";
 
 export const usePosts = () => {
   const { posts } = useTypedSelector((state) => state.posts);
-  const [sortOption, setSortOption] = useState("");
+  const [sortOption, setSortOption] = useState<ISortOptions | null>(null);
   const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(5);
@@ -15,9 +15,9 @@ export const usePosts = () => {
     );
   }, [posts, searchValue]);
   const sortedPosts = useMemo(() => {
-    if (sortOption === "asc") {
+    if (sortOption?.value === "asc") {
       return [...filteredPosts].sort((a, b) => a.title.localeCompare(b.title));
-    } else if (sortOption === "desc") {
+    } else if (sortOption?.value === "desc") {
       return [...filteredPosts].sort((a, b) => b.title.localeCompare(a.title));
     } else {
       return filteredPosts;
@@ -37,7 +37,11 @@ export const usePosts = () => {
   };
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
   const handleSortChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSortOption(e.target.value);
+    const selectedOption = e.target.value;
+    const selectedOptionValue: ISortOptions | undefined = SORT_OPTIONS.find(
+      (option) => selectedOption === option.value
+    );
+    setSortOption(selectedOptionValue ?? null);
   };
   return {
     filteredPosts: paginatedPosts,

@@ -2,7 +2,7 @@ export const BASE_URL = "https://jsonplaceholder.typicode.com/";
 
 export interface ISortOptions {
   label: string;
-  value: string;
+  value: "normal" | "asc" | "desc";
 }
 
 export const SORT_OPTIONS: ISortOptions[] = [
