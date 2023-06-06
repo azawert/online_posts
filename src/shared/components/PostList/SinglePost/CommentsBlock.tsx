@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { IComment } from "../../../../types/comment.interface";
 import { SingleComment } from "./SingleComment";
 import { ListGroup } from "react-bootstrap";

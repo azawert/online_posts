@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
 import { postsReducer } from "./postReducer";
 import { userReducer } from "./userReducer";
-import { searchReducer } from "./searchReducer";
+
+import { selectedUserReducer } from "./selectedUser";
 
 export const rootReducer = combineReducers({
   posts: postsReducer,
   users: userReducer,
-  search: searchReducer,
+
+  selectedUser: selectedUserReducer,
 });

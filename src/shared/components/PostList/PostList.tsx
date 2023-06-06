@@ -5,18 +5,29 @@ import { useTypedSelector } from "../../../hooks/useTypedSelector";
 
 interface IPostListProps {
   posts: IPost[];
+  isUserPage?: boolean;
 }
 
-export const PostList: FC<IPostListProps> = ({ posts }) => {
+export const PostList: FC<IPostListProps> = ({ posts, isUserPage }) => {
   const users = useTypedSelector((state) => state.users.users);
-
+  const { user } = useTypedSelector((state) => state.selectedUser);
   return (
     <div>
-      {posts.map((post) => {
-        const user = users?.find((user) => post.userId === user.id);
-        if (!user) return null;
-        return <SinglePost post={post} user={user} key={post.id} />;
-      })}
+      {posts.length > 0 ? (
+        posts.map((post) => {
+          const userFromPost = users?.find((user) => post.userId === user.id);
+          return (
+            <SinglePost
+              post={post}
+              user={isUserPage ? user! : userFromPost!}
+              key={post.id}
+              isUserPage={isUserPage}
+            />
+          );
+        })
+      ) : (
+        <h1>No posts</h1>
+      )}
     </div>
   );
 };

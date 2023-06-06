@@ -11,12 +11,12 @@ export const FETCH_SELECTED_USER_FAILURE = "FETCH_SELECTED_USER_FAILURE";
 
 export interface IFetchUserPostsRequest
   extends Action<typeof FETCH_USER_POSTS_REQUEST> {
-  payload: undefined;
+  payload: number;
 }
 
 export interface IFetchSelectedUserRequest
   extends Action<typeof FETCH_SELECTED_USER_REQUEST> {
-  payload: undefined;
+  payload: number;
 }
 
 export interface IFetchUserPostsSuccess
@@ -38,3 +38,42 @@ export interface IFetchSelectedUserFailure
   extends Action<typeof FETCH_SELECTED_USER_FAILURE> {
   payload: Error | string;
 }
+
+export const fetchSelectedUserRequest = (
+  id: number
+): IFetchSelectedUserRequest => ({
+  type: FETCH_SELECTED_USER_REQUEST,
+  payload: id,
+});
+
+export const fetchSelectedUserSuccess = (
+  payload: IUser
+): IFetchSelectedUserSuccess => ({
+  type: FETCH_SELECTED_USER_SUCCESS,
+  payload,
+});
+
+export const fetchSelectedUserFailure = (
+  payload: Error
+): IFetchSelectedUserFailure => ({
+  type: FETCH_SELECTED_USER_FAILURE,
+  payload,
+});
+export const fetchUserPostsRequest = (id: number): IFetchUserPostsRequest => ({
+  type: FETCH_USER_POSTS_REQUEST,
+  payload: id,
+});
+
+export const fetchUserPostsSuccess = (
+  payload: IPost[]
+): IFetchUserPostsSuccess => ({
+  type: FETCH_USER_POSTS_SUCCESS,
+  payload,
+});
+
+export const fetchUsersPostsFailure = (
+  payload: Error
+): IFetchUserPostsFailure => ({
+  type: FETCH_USER_POSTS_FAILURE,
+  payload,
+});

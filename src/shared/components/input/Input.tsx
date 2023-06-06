@@ -1,9 +1,8 @@
-import { FC, InputHTMLAttributes, PropsWithChildren } from "react";
+import { FC, InputHTMLAttributes } from "react";
 import { TiDeleteOutline } from "react-icons/ti";
 import styles from "./input.module.scss";
 
-interface IInputProps
-  extends PropsWithChildren<InputHTMLAttributes<HTMLInputElement>> {
+interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
   value: string;
   deleteInputValue: () => void;
 }

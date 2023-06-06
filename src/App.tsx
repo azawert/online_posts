@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import { Home } from "./pages/home/Home";
 import { About } from "./pages/About";
+import { User } from "./pages/user-page/User";
 function App() {
   return (
     <Provider store={store}>
@@ -12,7 +13,7 @@ function App() {
         <Layout>
           <Routes>
             <Route element={<Home />} path={"/"} />
-            <Route path={"/users/:id"} />
+            <Route path={"/users/:id"} element={<User />} />
             <Route path={"/about-me"} element={<About />} />
           </Routes>
         </Layout>
