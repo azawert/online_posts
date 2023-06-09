@@ -1,8 +1,10 @@
-import { FC } from "react";
+import { FC, useRef } from "react";
 
 import { FaBars } from "react-icons/fa";
 import { IoCloseOutline } from "react-icons/io5";
 import { Divider } from "../../divider/Divider";
+import { Menu } from "../../menu/Menu";
+import { useOnClickOutside } from "../../../../hooks/useOutsideClick";
 
 interface IHeaderProps {
   isOpen: boolean;
@@ -10,6 +12,8 @@ interface IHeaderProps {
 }
 
 export const Header: FC<IHeaderProps> = ({ handleMenuClick, isOpen }) => {
+  const menuRef = useRef<HTMLDivElement>(null);
+  useOnClickOutside(menuRef, handleMenuClick);
   return (
     <header>
       <div>
@@ -19,6 +23,7 @@ export const Header: FC<IHeaderProps> = ({ handleMenuClick, isOpen }) => {
           <FaBars size={25} onClick={handleMenuClick} />
         )}
       </div>
+      {isOpen && <Menu ref={menuRef} />}
       <Divider />
     </header>
   );

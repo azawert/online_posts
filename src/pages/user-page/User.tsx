@@ -9,7 +9,6 @@ import {
 import { UserInfo } from "./user-info/UserInfo";
 import { Col, Container, Row } from "react-bootstrap";
 import { UserPosts } from "./user-info/UserPosts";
-import { Link } from "react-router-dom";
 
 export const User: FC = () => {
   const dispatch = useDispatch();
@@ -23,9 +22,6 @@ export const User: FC = () => {
       <Container>
         <Row>
           <Col xs={12} md={4}>
-            <Link to='/'>
-              <AiOutlineArrowLeft size={34} />
-            </Link>
             <UserInfo />
           </Col>
           <Col xs={12} md={8}>
